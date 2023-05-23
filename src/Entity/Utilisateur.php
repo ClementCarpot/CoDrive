@@ -5,11 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
  */
-class Utilisateur
+class Utilisateur implements UserInterface
 {
     /**
      * @ORM\Id
@@ -18,171 +19,63 @@ class Utilisateur
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $nom;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $prenom;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $email;
+    // ...
 
     /**
      * @ORM\Column(type="string")
      */
-    private $motDePasse;
+    private $password;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="json")
      */
-    private $role;
+    private $roles = [];
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Annonce", mappedBy="conducteur")
-     */
-    private $annonces;
+    // ...
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="passager")
-     */
-    private $reservations;
-
-    public function __construct()
+    public function getPassword(): ?string
     {
-        $this->annonces = new ArrayCollection();
-        $this->reservations = new ArrayCollection();
+        return $this->password;
     }
 
-    // plus les getters et setters...
-
-    public function getId(): ?int
+    public function setPassword(string $password): self
     {
-        return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
+        $this->password = $password;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
+    public function getRoles(): array
     {
-        return $this->prenom;
+        $roles = $this->roles;
+        // Afin de s'assurer qu'un utilisateur a toujours au moins 1 rôle
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function setPrenom(string $prenom): self
+    public function setRoles(array $roles): self
     {
-        $this->prenom = $prenom;
+        $this->roles = $roles;
 
         return $this;
     }
 
-    public function getEmail(): ?string
+    // Ces méthodes sont requises par l'interface UserInterface
+
+    public function getUsername(): string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function getSalt(): ?string
     {
-        $this->email = $email;
-
-        return $this;
+        // pas nécessaire si vous utilisez bcrypt ou argon
+        return null;
     }
 
-    public function getMotDePasse(): ?string
+    public function eraseCredentials(): void
     {
-        return $this->motDePasse;
-    }
-
-    public function setMotDePasse(string $motDePasse): self
-    {
-        $this->motDePasse = $motDePasse;
-
-        return $this;
-    }
-
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Annonce>
-     */
-    public function getAnnonces(): Collection
-    {
-        return $this->annonces;
-    }
-
-    public function addAnnonce(Annonce $annonce): self
-    {
-        if (!$this->annonces->contains($annonce)) {
-            $this->annonces->add($annonce);
-            $annonce->setConducteur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAnnonce(Annonce $annonce): self
-    {
-        if ($this->annonces->removeElement($annonce)) {
-            // set the owning side to null (unless already changed)
-            if ($annonce->getConducteur() === $this) {
-                $annonce->setConducteur(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Reservation>
-     */
-    public function getReservations(): Collection
-    {
-        return $this->reservations;
-    }
-
-    public function addReservation(Reservation $reservation): self
-    {
-        if (!$this->reservations->contains($reservation)) {
-            $this->reservations->add($reservation);
-            $reservation->setPassager($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReservation(Reservation $reservation): self
-    {
-        if ($this->reservations->removeElement($reservation)) {
-            // set the owning side to null (unless already changed)
-            if ($reservation->getPassager() === $this) {
-                $reservation->setPassager(null);
-            }
-        }
-
-        return $this;
+        // supprime les données sensibles de l'objet utilisateur
     }
 }
