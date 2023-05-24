@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonces{% endblock %}
+
+{% block body %}
+<div style="margin-top: 6rem;">
+    {% for annonce in annonces %}
+    <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-8">
+        <div class="md:flex">
+            <div class="md:flex-shrink-0">
+                <img class="h-48 w-full object-cover md:w-48" src="{{ asset('images/covoiturage.jpg') }}" alt="Car image">
+            </div>
+            <div class="p-8">
+                <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Annonce</div>
+                <h1 class="block mt-1 text-lg leading-tight font-medium text-black">{{ annonce.conducteur.username }}</h1>
+                <p class="mt-2 text-gray-500">Départ : {{ annonce.villeDepart }}</p>
+                <p class="mt-2 text-gray-500">Arrivée : {{ annonce.villeArrive }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

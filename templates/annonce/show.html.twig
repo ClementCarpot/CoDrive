@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'annonce{% endblock %}
+
+{% block body %}
+<div style="margin-top: 6rem;">
+    <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-8">
+        <div class="md:flex">
+            <div class="p-8">
+                <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Trajet</div>
+                <h1 class="block mt-1 text-lg leading-tight font-medium text-black">{{ annonce.conducteur.username }}</h1>
+                <p class="mt-2 text-gray-500">Départ : {{ annonce.villeDepart }}</p>
+                <p class="mt-2 text-gray-500">Arrivée : {{ annonce.villeArrive }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

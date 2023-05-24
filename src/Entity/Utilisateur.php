@@ -31,6 +31,11 @@ class Utilisateur implements UserInterface
      */
     private $roles = [];
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $email;
+
     // ...
 
     public function getPassword(): ?string
@@ -62,6 +67,18 @@ class Utilisateur implements UserInterface
     }
 
     // Ces méthodes sont requises par l'interface UserInterface
+
+    public function getEmail(): ?string  // <-- Ajoutez cette méthode
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self  // <-- Ajoutez cette méthode
+    {
+        $this->email = $email;
+
+        return $this;
+    }
 
     public function getUsername(): string
     {
