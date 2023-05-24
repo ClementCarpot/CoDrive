@@ -7,13 +7,26 @@
   <nav>
     <ul class="flex items-center space-x-4">
       <li><a href="{{ path('accueil') }}" class="hover:underline">Accueil</a></li>
-      <li><a href="{{ path('a_propos') }}" class="hover:underline">À propos</a></li>
-      <li>
-        <a href="{{ path('connexion') }}" class="inline-block px-4 py-2 text-blue-500 bg-white rounded hover:bg-gray-200">Connexion</a>
-      </li>
-      <li>
-        <a href="{{ path('inscription') }}" class="inline-block px-4 py-2 text-blue-500 bg-white rounded hover:bg-gray-200">Inscription</a>
-      </li>
+      <li><a href="{{ path('publier_trajet') }}" class="hover:underline">Publier un trajet</a></li>
+
+      {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+          <li>
+            <a href="{{ path('profil') }}" class="inline-block px-4 py-2 text-blue-500 bg-white rounded hover:bg-gray-200">
+              <i class="fas fa-user"></i> Profil
+            </a>
+          </li>
+          <li>
+            <a href="{{ path('deconnexion') }}" class="inline-block px-4 py-2 text-blue-500 bg-white rounded hover:bg-gray-200">Déconnexion</a>
+          </li>
+      {% else %}
+          <li>
+            <a href="{{ path('connexion') }}" class="inline-block px-4 py-2 text-blue-500 bg-white rounded hover:bg-gray-200">Connexion</a>
+          </li>
+          <li>
+            <a href="{{ path('inscription') }}" class="inline-block px-4 py-2 text-blue-500 bg-white rounded hover:bg-gray-200">Inscription</a>
+          </li>
+      {% endif %}
+      
     </ul>
   </nav>
 </header>

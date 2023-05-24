@@ -2,13 +2,13 @@ security:
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
-        App\Entity\User: "auto" # Remplacez ceci par votre classe User
+        App\Entity\Utilisateur: "auto" # Remplacez ceci par votre classe User
 
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         app_user_provider:
             entity:
-                class: App\Entity\User
+                class: App\Entity\Utilisateur
                 property: email # Remplacez ceci par le champ unique de votre classe User
 
     firewalls:
@@ -19,8 +19,11 @@ security:
             lazy: true
             provider: app_user_provider
             form_login:
-                login_path: app_login
-                check_path: app_login
+                login_path: connexion
+                check_path: connexion
+            logout:
+                path: deconnexion
+                target: accueil
 
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
@@ -33,7 +36,7 @@ when@test:
             # important to generate secure password hashes. In tests however, secure hashes
             # are not important, waste resources and increase test times. The following
             # reduces the work factor to the lowest possible values.
-            App\Entity\User:
+            App\Entity\Utilisateur:
                 algorithm: auto
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon

@@ -2,9 +2,9 @@ accueil:
   path: /
   controller: App\Controller\AccueilController::index
 
-a_propos:
-  path: /a_propos
-  controller: App\Controller\A_proposController::index
+publier_trajet:
+  path: /publier_trajet
+  controller: App\Controller\AnnonceController::createAnnonce
 
 connexion:
   path: /connexion
@@ -12,4 +12,19 @@ connexion:
 
 inscription:
   path: /inscription
-  controller: App\Controller\InscriptionController::index
+  controller: App\Controller\RegistrationController::register
+
+profil:
+  path: /profil
+  controller: App\Controller\ProfileController::index
+
+deconnexion:
+  path: /deconnexion
+
+annonce_show:
+  path: /annonce/{id}
+  controller: App\Controller\ShowAnnonceController::index
+
+annonces:
+  path: /annonces
+  controller: App\Controller\AnnonceListController::index

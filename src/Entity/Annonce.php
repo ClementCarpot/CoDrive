@@ -26,6 +26,11 @@ class Annonce
      */
     private $villeDepart;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $villeArrive;
+
     // plus les autres champs et leurs getters/setters...
 
     public function getId(): ?int
@@ -41,6 +46,18 @@ class Annonce
     public function setVilleDepart(string $villeDepart): self
     {
         $this->villeDepart = $villeDepart;
+
+        return $this;
+    }
+
+    public function getVilleArrive(): ?string
+    {
+        return $this->villeArrive;
+    }
+
+    public function setVilleArrive(string $villeArrive): self
+    {
+        $this->villeArrive = $villeArrive;
 
         return $this;
     }
