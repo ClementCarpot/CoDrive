@@ -15,8 +15,8 @@ class AnnonceController extends AbstractController
         $annonce = new Annonce();
 
         // récupérer l'utilisateur actuellement connecté
-        $user = $this->getUser();
-        $annonce->setConducteur($user);
+        $nom = $this->getUser();
+        $annonce->setConducteur($nom);
 
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
@@ -26,11 +26,25 @@ class AnnonceController extends AbstractController
             $entityManager->persist($annonce);
             $entityManager->flush();
 
-            return $this->redirectToRoute('annonce_show', ['id' => $annonce->getId()]);
+            return $this->redirectToRoute('edit_profil');
         }
 
         return $this->render('annonce/new.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/annonce/delete/{id}", name="annonce_delete")
+     */
+    public function delete(Request $request, Annonce $annonce)
+    {
+        if ($this->isCsrfTokenValid('delete' . $annonce->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($annonce);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('edit_profil');
     }
 }
