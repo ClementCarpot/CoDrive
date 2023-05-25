@@ -1,0 +1,101 @@
+body.dark-mode {
+  background-color: #333;
+  color: #eee;
+}
+
+body.dark-mode a {
+  color: #ddd;
+}
+
+body.dark-mode .label {
+  color: #ddd;
+}
+
+body.dark-mode .dark-mode-input {
+  background-color: #444;
+  color: #ddd;
+  border: none;
+}
+
+body.dark-mode .dark-mode-card {
+  background-color: #1f1d1d;
+  color: #ddd;
+  border: none
+}
+
+body.dark-mode .dark-mode-header {
+  background-color: #1f1d1d;
+  color: #eee;
+}
+
+body.dark-mode .dark-mode-button {
+  background-color: #333;
+  color: #ddd;
+}
+
+body.dark-mode .dark-mode- {
+  background-color: #333;
+  color: #ddd;
+}
+
+body.dark-mode .dark-mode-button:hover {
+  background-color: #444;
+  color: #ddd;
+}
+
+body.dark-mode .dark-mode-block {
+  background-color: #333;
+  /* Changez en la couleur de fond souhaitée en mode sombre */
+  color: #eee;
+  /* Changez en la couleur de texte souhaitée en mode sombre */
+}
+
+
+.dark-mode-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.dark-mode-switch .checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.dark-mode-switch .label {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.dark-mode-switch .label:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+.dark-mode-switch .checkbox:checked+.label {
+  background-color: #2196F3;
+}
+
+.dark-mode-switch .checkbox:checked+.label:before {
+  transform: translateX(26px);
+}
+
+.dark-mode-switch .label:active:before {
+  width: 45px;
+}
