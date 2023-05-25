@@ -1,36 +1,36 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+<div class="bg-background-image bg-cover min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 dark-mode-block">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 label">
             Connexion
         </h2>
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 dark-mode-card">
             <form method="post">
                 <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700">
+                    <label for="username" class="block text-sm font-medium text-gray-700 label">
                         Email
                     </label>
                     <div class="mt-1">
-                        <input id="username" type="email" name="_username" required="required" autocomplete="username" autofocus class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                        <input id="username" type="email" name="_username" required="required" autocomplete="username" autofocus class="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark-mode-input" />
                     </div>
                 </div>
 
                 <div class="mt-6">
-                    <label for="password" class="block text-sm font-medium text-gray-700">
+                    <label for="password" class="block text-sm font-medium text-gray-700 label">
                         Password
                     </label>
                     <div class="mt-1">
-                        <input id="password" type="password" name="_password" required="required" autocomplete="current-password" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                        <input id="password" type="password" name="_password" required="required" autocomplete="current-password" class="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark-mode-input" />
                     </div>
                 </div>
 
                 <div class="mt-6">
-                    <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-600 dark:hover:bg-gray-500">
                         Connexion
                     </button>
                 </div>

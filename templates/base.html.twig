@@ -17,5 +17,15 @@
         {% include 'header.html.twig' %}
 
         {% block body %}{% endblock %}
+        <script src="{{ asset('js/dark-mode.js') }}"></script>
+        <script>
+            // Vérifiez l'état du mode sombre dans le local storage et appliquez-le immédiatement
+            (function() {
+                const isDarkMode = localStorage.getItem("darkMode") === "true";
+                if (isDarkMode) {
+                    document.body.classList.add("dark-mode");
+                }
+            })();
+        </script>
     </body>
 </html>

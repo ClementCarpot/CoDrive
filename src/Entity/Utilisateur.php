@@ -36,7 +36,96 @@ class Utilisateur implements UserInterface
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $prenom;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="passager")
+     */
+    private $reservations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Annonce", mappedBy="conducteur")
+     */
+
+    private $annonces;
     // ...
+
+    public function __construct()
+    {
+        // ...
+        $this->reservations = new ArrayCollection();
+        $this->annonces = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setPassager($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            // set the owning side to null (unless already changed)
+            if ($reservation->getPassager() === $this) {
+                $reservation->setPassager(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Annonce[]
+     */
+    public function getAnnonces(): Collection
+    {
+        return $this->annonces;
+    }
+
+    public function addAnnonce(Annonce $annonce): self
+    {
+        if (!$this->annonces->contains($annonce)) {
+            $this->annonces[] = $annonce;
+            $annonce->setConducteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnonce(Annonce $annonce): self
+    {
+        if ($this->annonces->contains($annonce)) {
+            $this->annonces->removeElement($annonce);
+            // set the owning side to null (unless already changed)
+            if ($annonce->getConducteur() === $this) {
+                $annonce->setConducteur(null);
+            }
+        }
+
+        return $this;
+    }
 
     public function getPassword(): ?string
     {
@@ -66,16 +155,38 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-    // Ces méthodes sont requises par l'interface UserInterface
-
-    public function getEmail(): ?string  // <-- Ajoutez cette méthode
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self  // <-- Ajoutez cette méthode
+    public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
 
         return $this;
     }
