@@ -2,14 +2,14 @@ security:
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
-        App\Entity\Utilisateur: "auto" # Remplacez ceci par votre classe User
+        App\Entity\Utilisateur: "auto"
 
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         app_user_provider:
             entity:
                 class: App\Entity\Utilisateur
-                property: email # Remplacez ceci par le champ unique de votre classe User
+                property: email
 
     firewalls:
         dev:
