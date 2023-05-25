@@ -18,6 +18,10 @@ profil:
   path: /profil
   controller: App\Controller\ProfileController::index
 
+edit_profil:
+  path: /edit_profil
+  controller: App\Controller\ProfileController::editProfile
+
 deconnexion:
   path: /deconnexion
 
@@ -28,3 +32,23 @@ annonce_show:
 annonces:
   path: /annonces
   controller: App\Controller\AnnonceListController::index
+
+annonce_delete:
+  path: /annonce/delete/{id}
+  controller: App\Controller\AnnonceController::delete
+  methods: [POST, DELETE]
+
+booking_reserve:
+  path: /booking/reserve/{id}
+  controller: App\Controller\BookingController::reserve
+  requirements:
+    id: '\d+'
+
+mes_reservations:
+  path: /mes_reservations
+  controller: App\Controller\BookingController::index
+
+annuler_reservation:
+  path: /reservation/cancel/{id}
+  controller: App\Controller\ReservationController::cancel
+  methods: POST
