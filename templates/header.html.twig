@@ -52,8 +52,11 @@
                     <label for="dark-mode-checkbox" class="label"></label>
                 </div>
             </div>
-        </li>
-
+          </li>
+          <li>
+            <a href="{{ path('change_locale', { 'locale': 'en' }) }}">English</a>
+            <a href="{{ path('change_locale', { 'locale': 'fr' }) }}">Français</a>
+          </li>
     </ul>
   </div>
 </header>
