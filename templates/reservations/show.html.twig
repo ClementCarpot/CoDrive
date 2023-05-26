@@ -1,12 +1,22 @@
-{{ form_start(form) }}
-    {{ form_row(form.contenu) }}
-    <button type="submit">Ajouter commentaire</button>
-{{ form_end(form) }}
+{% extends 'base.html.twig' %}
 
-<h2>Commentaire:</h2>
-{% for commentaire in reservation.getAnnonce().getCommentaires() %}
-    <div>
-        <strong>{{ commentaire.getAuteur().getUsername() }}</strong>
-        <p>{{ commentaire.getContenu() }}</p>
-    </div>
-{% endfor %}
+{% block title %}Ajouter un commentaire{% endblock %}
+
+{% block body %}
+    {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+        <div class="block">
+            {{ form_label(form.contenu, null, {'label_attr': {'class': 'font-bold mb-2 text-gray-700'}}) }}
+            {{ form_widget(form.contenu, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+        </div>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter commentaire</button>
+    {{ form_end(form) }}
+
+    <h2 class="font-bold text-2xl mb-4">Commentaires:</h2>
+    {% for commentaire in reservation.getAnnonce().getCommentaires() %}
+        <div class="bg-gray-100 p-4 rounded-lg mb-4 shadow-md">
+            <strong class="text-lg">{{ commentaire.getAuteur().getUsername() }}</strong>
+            <p class="mt-2">{{ commentaire.getContenu() }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+

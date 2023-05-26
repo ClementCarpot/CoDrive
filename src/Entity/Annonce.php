@@ -59,6 +59,17 @@ class Annonce
      */
     private $reservations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="annonce")
+     */
+    private $commentaires;
+
+    public function __construct()
+    {
+        $this->commentaires = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -68,11 +79,6 @@ class Annonce
     public function getHeureDepart(): ?\DateTimeInterface
     {
         return $this->heureDepart;
-    }
-
-    public function __construct()
-    {
-        $this->reservations = new ArrayCollection();
     }
 
     /**
@@ -88,6 +94,33 @@ class Annonce
         if (!$this->reservations->contains($reservation)) {
             $this->reservations[] = $reservation;
             $reservation->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getAnnonce() === $this) {
+                $commentaire->setAnnonce(null);
+            }
         }
 
         return $this;

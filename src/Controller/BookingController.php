@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Commentaire;
+use App\Form\CommentaireType;
 
 
 class BookingController extends AbstractController
@@ -96,7 +99,7 @@ class BookingController extends AbstractController
             return $this->redirectToRoute('reservation_show', ['id' => $reservation->getId()]);
         }
 
-        return $this->render('reservation/show.html.twig', [
+        return $this->render('reservations/show.html.twig', [
             'reservation' => $reservation,
             'form' => $form->createView(),
         ]);
