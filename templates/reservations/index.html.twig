@@ -5,7 +5,6 @@
 {% block body %}
     <div class="container mx-auto px-4">
         <h1 class="mt-20 text-3xl font-semibold text-blue-700 my-4 label text-center">Mes réservations</h1>
-
         {% if reservations|length > 0 %}
             <div class="grid md:grid-cols-4 gap-4">
                 {% for reservation in reservations %}

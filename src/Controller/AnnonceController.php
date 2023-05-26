@@ -29,7 +29,7 @@ class AnnonceController extends AbstractController
             $entityManager->persist($annonce);
             $entityManager->flush();
 
-            return $this->redirectToRoute('edit_profil');
+            return $this->redirectToRoute('mes_annonces');
         }
 
         return $this->render('annonce/new.html.twig', [

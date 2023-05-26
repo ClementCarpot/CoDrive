@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+    {{ form_row(form.contenu) }}
+    <button type="submit">Ajouter commentaire</button>
+{{ form_end(form) }}
+
+<h2>Commentaire:</h2>
+{% for commentaire in reservation.getAnnonce().getCommentaires() %}
+    <div>
+        <strong>{{ commentaire.getAuteur().getUsername() }}</strong>
+        <p>{{ commentaire.getContenu() }}</p>
+    </div>
+{% endfor %}
