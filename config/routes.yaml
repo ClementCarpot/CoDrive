@@ -52,3 +52,7 @@ annuler_reservation:
   path: /reservation/cancel/{id}
   controller: App\Controller\ReservationController::cancel
   methods: POST
+
+mes_annonces:
+  path: /mes_annonces
+  controller: App\Controller\AnnonceController::mesAnnonces

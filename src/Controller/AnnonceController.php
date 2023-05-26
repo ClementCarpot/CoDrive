@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Annonce;
 use App\Form\AnnonceType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\AnnonceRepository;
+
 
 class AnnonceController extends AbstractController
 {
@@ -41,10 +44,32 @@ class AnnonceController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $annonce->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            // Avant de supprimer l'annonce, supprimez toutes les réservations associées
+            foreach ($annonce->getReservations() as $reservation) {
+                $entityManager->remove($reservation);
+            }
+
             $entityManager->remove($annonce);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('edit_profil');
+    }
+
+
+    /**
+     * @Route("/mes_annonces", name="mes_annonces")
+     */
+    public function mesAnnonces(AnnonceRepository $annonceRepository): Response
+    {
+
+        $user = $this->getUser();
+
+        $annonces = $annonceRepository->findBy(['conducteur' => $user]);
+
+        return $this->render('annonce/mes_annonces.html.twig', [
+            'annonces' => $annonces,
+        ]);
     }
 }

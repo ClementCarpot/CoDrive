@@ -55,9 +55,10 @@ class Annonce
     private $vehicule;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="annonce")
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="annonce", cascade={"remove"})
      */
     private $reservations;
+
 
     public function getId(): ?int
     {
