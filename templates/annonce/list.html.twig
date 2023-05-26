@@ -9,15 +9,15 @@
         <div class="md:flex">
             <div class="p-8 dark-mode-card">
                 <h1 class="block mt-1 text-lg leading-tight font-medium text-black dark-mode-card"><i class="fas fa-user"></i> {{ annonce.conducteur.nom }}{{ " " }}{{ annonce.conducteur.prenom }}</h1>
-                <p class="mt-2 text-gray-500 dark-mode-card"><i class="fas fa-map-marker-alt"></i> Départ : {{ annonce.villeDepart }}</p>
-                <p class="mt-2 text-gray-500 dark-mode-card"><i class="fas fa-map-marker-alt"></i> Arrivée : {{ annonce.villeArrive }}</p>
-                <p class="mt-2 text-gray-500 dark-mode-card"><i class="fa-solid fa-calendar-days"></i> Date départ : {{ annonce.dateDepart|date('d/m/Y') }}</p>
-                <p class="mt-2 text-gray-500 dark-mode-card"><i class="fa-regular fa-clock"></i> Heure départ : {{ annonce.heureDepart|date('H:i') }}</p>
+                <p class="mt-2 text-gray-500 dark-mode-card"><i class="fas fa-map-marker-alt"></i> {{ 'start'|trans }} : {{ annonce.villeDepart }}</p>
+                <p class="mt-2 text-gray-500 dark-mode-card"><i class="fas fa-map-marker-alt"></i> {{ 'arrival'|trans }} : {{ annonce.villeArrive }}</p>
+                <p class="mt-2 text-gray-500 dark-mode-card"><i class="fa-solid fa-calendar-days"></i> {{ 'dateStart'|trans }}  : {{ annonce.dateDepart|date('d/m/Y') }}</p>
+                <p class="mt-2 text-gray-500 dark-mode-card"><i class="fa-regular fa-clock"></i> {{ 'hourStart'|trans }}  : {{ annonce.heureDepart|date('H:i') }}</p>
                 <p class="mt-2 text-gray-500 dark-mode-card"><i class="fas fa-car"></i> {{ annonce.vehicule }}</p>
                 <p class="mt-2 text-gray-500 dark-mode-card"> Prix : {{ annonce.prix }} €</p>
                 <form action="{{ path('booking_reserve', {id: annonce.id}) }}">
                     <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark-mode-button">
-                        Réserver
+                        {{ 'booking'|trans }} 
                     </button>
                 </form>
             </div>

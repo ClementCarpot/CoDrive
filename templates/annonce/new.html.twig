@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouvelle Annonce{% endblock %}
+{% block title %}{{ 'newAnnoucement'|trans }} {% endblock %}
 
 {% block body %}
     <div class="min-h-screen py-6 flex flex-col justify-center sm:py-12">
         <div class="relative py-3 sm:max-w-xl sm:mx-auto">
             <div class="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
             <div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20 dark-mode-header">
-                <h1 class="text-2xl font-semibold text-gray-900 label">Nouvelle Annonce</h1>
+                <h1 class="text-2xl font-semibold text-gray-900 label">{{ 'newAnnoucement'|trans }}</h1>
 
                 {{ form_start(form, {'attr': {'class': 'mt-8 space-y-6'}}) }}
                     <div class="relative">
@@ -43,7 +43,7 @@
 
                     <div>
                         <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500  dark-mode-button">
-                            Créer l'annonce
+                            {{ 'createAnnoucement'|trans }}
                         </button>
                     </div>
                 {{ form_end(form) }}
