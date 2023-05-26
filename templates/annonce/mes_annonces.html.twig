@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Annonces{% endblock %}
+
+{% block body %}
+    <div class="flex justify-center mt-6">
+        <div class="w-full px-2 pt-4 pb-4">
+            <h1 class="text-2xl font-semibold mb-4 text-center pt-10">Mes Annonces</h1>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {% for annonce in annonces %}
+                <div class="bg-white rounded-xl shadow-md overflow-hidden m-2 dark-mode-card">
+                    <div class="flex flex-col justify-between h-full">
+                        <div class="p-8">
+                            <p class="mt-2 text-gray-500 dark-mode-card"><i class="fas fa-map-marker-alt"></i> Départ : {{ annonce.villeDepart }}</p>
+                            <p class="mt-2 text-gray-500 dark-mode-card"><i class="fas fa-map-marker-alt"></i> Arrivée : {{ annonce.villeArrive }}</p>
+                            <p class="mt-2 text-gray-500 dark-mode-card"><i class="fa-solid fa-calendar-days"></i> Date départ : {{ annonce.dateDepart|date('d/m/Y') }}</p>
+                            <p class="mt-2 text-gray-500 dark-mode-card"><i class="fa-regular fa-clock"></i> Heure départ : {{ annonce.heureDepart|date('H:i') }}</p>
+                            <p class="mt-2 text-gray-500 dark-mode-card"><i class="fas fa-car"></i> {{ annonce.vehicule }}</p>
+                            <p class="mt-2 text-gray-500 dark-mode-card"> Prix : {{ annonce.prix }} euros</p>
+                            <form method="post" action="{{ path('annonce_delete', {id: annonce.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce?');">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ annonce.id) }}">
+                                <div class="flex justify-center mt-4">
+                                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark-mode-button">
+                                        Supprimer l'annonce
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
