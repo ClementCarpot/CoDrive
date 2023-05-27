@@ -56,3 +56,9 @@ annuler_reservation:
 mes_annonces:
   path: /mes_annonces
   controller: App\Controller\AnnonceController::mesAnnonces
+
+change_locale:
+  path: /change-locale/{locale}
+  controller: App\Controller\ProfileController::changeLocale
+  requirements:
+    locale: en|fr

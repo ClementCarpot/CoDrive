@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Commentaire;
+use App\Form\CommentaireType;
 
 
 class BookingController extends AbstractController
@@ -37,7 +40,7 @@ class BookingController extends AbstractController
         $em->flush();
 
         // Redirige vers la page de l'annonce ou une autre page, peut-être avec un message flash de succès
-        return $this->redirectToRoute('annonce_show', ['id' => $annonce->getId()]);
+        return $this->redirectToRoute('mes_reservations');
     }
 
     /**
@@ -76,5 +79,29 @@ class BookingController extends AbstractController
         $this->addFlash('success', 'Réservation annulée avec succès.');
 
         return $this->redirectToRoute('mes_reservations');
+    }
+    /**
+     * @Route("/reservation/{id}", name="reservation_show")
+     */
+    public function show(Request $request, Reservation $reservation)
+    {
+        $commentaire = new Commentaire();
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commentaire->setAuteur($this->getUser());
+            $commentaire->setAnnonce($reservation->getAnnonce());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($commentaire);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('reservation_show', ['id' => $reservation->getId()]);
+        }
+
+        return $this->render('reservations/show.html.twig', [
+            'reservation' => $reservation,
+            'form' => $form->createView(),
+        ]);
     }
 }

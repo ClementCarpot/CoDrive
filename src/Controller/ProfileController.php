@@ -49,4 +49,13 @@ class ProfileController extends AbstractController
             'annonces' => $annonces, // ajoutez cette ligne
         ]);
     }
+    /**
+     * @Route("/change-locale/{locale}", name="change_locale")
+     */
+    public function changeLocale($locale, Request $request)
+    {
+        $request->getSession()->set('_locale', $locale);
+
+        return $this->redirect($request->headers->get('referer'));
+    }
 }

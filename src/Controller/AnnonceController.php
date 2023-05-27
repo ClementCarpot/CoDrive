@@ -3,17 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Commentaire;
 use App\Form\AnnonceType;
+use App\Form\CommentaireType;
+use App\Repository\AnnonceRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Repository\AnnonceRepository;
-
 
 class AnnonceController extends AbstractController
 {
-    public function createAnnonce(Request $request)
+    /**
+     * @Route("/annonce/new", name="annonce_new")
+     */
+    public function createAnnonce(Request $request): Response
     {
         $annonce = new Annonce();
 
@@ -29,7 +33,7 @@ class AnnonceController extends AbstractController
             $entityManager->persist($annonce);
             $entityManager->flush();
 
-            return $this->redirectToRoute('edit_profil');
+            return $this->redirectToRoute('mes_annonces');
         }
 
         return $this->render('annonce/new.html.twig', [
@@ -40,7 +44,7 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonce/delete/{id}", name="annonce_delete")
      */
-    public function delete(Request $request, Annonce $annonce)
+    public function delete(Request $request, Annonce $annonce): Response
     {
         if ($this->isCsrfTokenValid('delete' . $annonce->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -57,19 +61,41 @@ class AnnonceController extends AbstractController
         return $this->redirectToRoute('edit_profil');
     }
 
-
     /**
      * @Route("/mes_annonces", name="mes_annonces")
      */
     public function mesAnnonces(AnnonceRepository $annonceRepository): Response
     {
-
         $user = $this->getUser();
-
         $annonces = $annonceRepository->findBy(['conducteur' => $user]);
 
         return $this->render('annonce/mes_annonces.html.twig', [
             'annonces' => $annonces,
+        ]);
+    }
+
+    /**
+     * @Route("/annonce/{id}", name="annonce_show")
+     */
+    public function show(Request $request, Annonce $annonce): Response
+    {
+        $commentaire = new Commentaire();
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commentaire->setAuteur($this->getUser());
+            $commentaire->setAnnonce($annonce);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($commentaire);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('annonce_show', ['id' => $annonce->getId()]);
+        }
+
+        return $this->render('annonce/show.html.twig', [
+            'annonce' => $annonce,
+            'form' => $form->createView(),
         ]);
     }
 }

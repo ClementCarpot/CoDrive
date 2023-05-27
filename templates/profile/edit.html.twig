@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier Profil{% endblock %}
+{% block title %}{{ 'editProfil'|trans }}{% endblock %}
 
 {% block body %}
      <div class="flex justify-center items-center mt-6">
         <div class="w-1/4 px-2 pt-4 pb-4">
-            <h1 class="text-2xl font-semibold mb-4 text-center pt-10">Modifier Profil</h1>
+            <h1 class="text-2xl font-semibold mb-4 text-center pt-10">{{ 'editProfil'|trans }}</h1>
 
             {{ form_start(form, {'attr': {'class': 'bg-white shadow-md rounded px-4 pt-4 pb-4 mb-4 dark-mode-card'}}) }}
                 <div class="mb-4">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="flex items-center justify-center">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark-mode-button" type="submit">
-                        Mettre à jour
+                        {{ 'update'|trans }}
                     </button>
                 </div>
             {{ form_end(form) }}
