@@ -54,9 +54,16 @@
             </div>
           </li>
           <li>
-            <a href="{{ path('change_locale', { 'locale': 'en' }) }}">{{ 'english'|trans }}</a>
-            <a href="{{ path('change_locale', { 'locale': 'fr' }) }}">{{ 'french'|trans }}</a>
+            <a href="{{ path('change_locale', { 'locale': 'en' }) }}">
+              <img src="{{ asset('images/english_flag.png') }}" alt="{{ 'english'|trans }}" style="height: 16px; width: 28px;"> 
+            </a>
           </li>
+          <li>
+            <a href="{{ path('change_locale', { 'locale': 'fr' }) }}">
+              <img src="{{ asset('images/french_flag.png') }}" alt="{{ 'french'|trans }}" style="height: 16px; width: 28px;">
+            </a>
+          </li>
+        </li>
     </ul>
   </div>
 </header>
