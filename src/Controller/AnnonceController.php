@@ -98,4 +98,45 @@ class AnnonceController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/annonces", name="annonces")
+     */
+    public function annonces(Request $request, AnnonceRepository $annonceRepository): Response
+    {
+        $departure = $request->query->get('departure');
+        $arrival = $request->query->get('arrival');
+        $date = $request->query->get('date');
+        $hour = $request->query->get('hour');
+
+        // Construction de votre requête personnalisée en fonction des paramètres de filtrage
+        $queryBuilder = $annonceRepository->createQueryBuilder('a');
+
+        if ($departure) {
+            $queryBuilder->andWhere('a.villeDepart = :departure')->setParameter('departure', $departure);
+        }
+
+        if ($arrival) {
+            $queryBuilder->andWhere('a.villeArrive = :arrival')->setParameter('arrival', $arrival);
+        }
+
+        if ($date) {
+            // Convertir la chaîne de date en objet DateTime pour pouvoir comparer les dates
+            $date = new \DateTime($date);
+            $queryBuilder->andWhere('a.dateDepart = :date')->setParameter('date', $date);
+        }
+
+        if ($hour) {
+            // Convertir la chaîne d'heure en objet DateTime pour pouvoir comparer les heures
+            $hour = new \DateTime($hour);
+            $queryBuilder->andWhere('a.heureDepart = :hour')->setParameter('hour', $hour);
+        }
+
+        // Exécution de la requête et récupération des annonces filtrées
+        $annonces = $queryBuilder->getQuery()->getResult();
+
+        return $this->render('annonce/annonces.html.twig', [
+            'annonces' => $annonces,
+        ]);
+    }
 }
