@@ -8,6 +8,5 @@
     symfony server:start
 
 ## Récupérer la base de données
-
     // a rajouter
 
