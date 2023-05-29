@@ -21,6 +21,10 @@ Comment déployer et tester l'application ?
 3. Mettre à jour les dépendances du projet avec Composer :
 
         composer update
+
+3. Mettre à jour les dépendances du projet avec npm :
+
+        npm update
         
 4. Mettre à jour les dépendances du projet avec npm :
 
