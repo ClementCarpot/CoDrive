@@ -24,9 +24,8 @@ Comment déployer et tester l'application ?
 
 3. Mettre à jour les dépendances du projet avec npm :
 
-        npm update
         npm install
-        npm run build
+        npm run dev
 
 4. Modifier le fichier .env pour configuer la connexion à la base de données :
 (cette ligne)
