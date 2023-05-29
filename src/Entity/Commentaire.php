@@ -32,7 +32,41 @@ class Commentaire
      */
     private $contenu;
 
-    // Ajoutez ici les getters et les setters...
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $note;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $rating;
+
+    // ...
+
+    public function getRating(): ?int
+    {
+        return $this->rating;
+    }
+
+    public function setRating(int $rating): self
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    public function getNote(): ?int
+    {
+        return $this->note;
+    }
+
+    public function setNote(int $note): self
+    {
+        $this->note = $note;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {

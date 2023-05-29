@@ -45,9 +45,7 @@ body.dark-mode .dark-mode-button:hover {
 
 body.dark-mode .dark-mode-block {
   background-color: #333;
-  /* Changez en la couleur de fond souhaitée en mode sombre */
   color: #eee;
-  /* Changez en la couleur de texte souhaitée en mode sombre */
 }
 
 
