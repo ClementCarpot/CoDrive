@@ -47,3 +47,8 @@ Comment déployer et tester l'application ?
 
         https://127.0.0.1:8000/
 
+Pour se connecter à l'application en tant qu'admin utiliser les identifiant suivant :
+
+        email : admin@example.com
+        mot de passe : admin
+
