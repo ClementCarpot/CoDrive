@@ -40,7 +40,6 @@
             <div class="w-200 bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-8 dark-mode-card">
                 <div class="md:flex">
                     <div class="p-8 dark-mode-card">
-                        <h1 class="block mt-1 text-lg leading-tight font-medium text-black dark-mode-card"><i class="fas fa-user"></i> {{ annonce.conducteur.nom }}{{ " " }}{{ annonce.conducteur.prenom }}</h1>
                         <p class="mt-2 text-gray-500 dark-mode-card"><i class="fas fa-map-marker-alt"></i> {{ 'start'|trans }} : {{ annonce.villeDepart }}</p>
                         <p class="mt-2 text-gray-500 dark-mode-card"><i class="fas fa-map-marker-alt"></i> {{ 'arrival'|trans }} : {{ annonce.villeArrive }}</p>
                         <p class="mt-2 text-gray-500 dark-mode-card"><i class="fa-solid fa-calendar-days"></i> {{ 'dateStart'|trans }}  : {{ annonce.dateDepart|date('d/m/Y') }}</p>
