@@ -7,6 +7,7 @@ Comment déployer et tester l'application ?
 - PHP (version 7.4 ou supérieur)
 - Composer
 - PostgreSQL
+- Yarn
 
 ## Initialisation
 
@@ -24,8 +25,9 @@ Comment déployer et tester l'application ?
 
 3. Mettre à jour les dépendances du projet avec npm :
 
-        npm install
-        npm run dev
+        yarn install
+        yarn update
+        yarn run dev
 
 4. Modifier le fichier .env pour configuer la connexion à la base de données :
 (cette ligne)
