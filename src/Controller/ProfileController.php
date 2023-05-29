@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Form\ProfileFormType;
 use App\Repository\AnnonceRepository;
+use App\Repository\ReservationRepository;
+use App\Repository\UtilisateurRepository;
+
 
 class ProfileController extends AbstractController
 {
@@ -26,16 +29,16 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profil/edit", name="profil_edit")
      */
-    public function editProfile(Request $request, UserPasswordEncoderInterface $passwordEncoder, AnnonceRepository $annonceRepository): Response
+    public function editProfile(Request $request, UserPasswordEncoderInterface $passwordEncoder, AnnonceRepository $annonceRepository, ReservationRepository $reservationRepository, UtilisateurRepository $utilisateurRepository): Response
     {
-        $user = $this->getUser(); // Obtenez l'utilisateur actuellement connecté
+        $user = $this->getUser();
         $form = $this->createForm(ProfileFormType::class, $user);
-        $annonces = $annonceRepository->findBy(['conducteur' => $user]); // ajoutez cette ligne
+        $annonces = $annonceRepository->findBy(['conducteur' => $user]);
+        $reservations = $reservationRepository->findBy(['passager' => $user]);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Enregistrez les modifications dans la base de données
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
@@ -46,9 +49,13 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/edit.html.twig', [
             'form' => $form->createView(),
-            'annonces' => $annonces, // ajoutez cette ligne
+            'annonces' => $annonces,
+            'user' => $user,
+            'reservations' => $reservations,
         ]);
     }
+
+
     /**
      * @Route("/change-locale/{locale}", name="change_locale")
      */

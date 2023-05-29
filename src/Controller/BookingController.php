@@ -80,6 +80,7 @@ class BookingController extends AbstractController
 
         return $this->redirectToRoute('mes_reservations');
     }
+
     /**
      * @Route("/reservation/{id}", name="reservation_show")
      */
@@ -92,6 +93,11 @@ class BookingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $commentaire->setAuteur($this->getUser());
             $commentaire->setAnnonce($reservation->getAnnonce());
+
+            // Récupérer la valeur de "note" depuis le formulaire
+            $note = $form->get('note')->getData();
+            $commentaire->setRating($note); // Associer la valeur de "note" à l'entité Commentaire
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($commentaire);
             $entityManager->flush();

@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+
 
 /**
  * @ORM\Entity
@@ -26,7 +29,24 @@ class Reservation
      */
     private $annonce;
 
-    // Ajoutez ici les getters et les setters...
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="reservation")
+     */
+    private $commentaires;
+
+    public function __construct()
+    {
+        // ...
+        $this->commentaires = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
 
     public function getId(): ?int
     {

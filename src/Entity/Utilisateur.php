@@ -19,8 +19,6 @@ class Utilisateur implements UserInterface
      */
     private $id;
 
-    // ...
-
     /**
      * @ORM\Column(type="string")
      */
@@ -54,9 +52,8 @@ class Utilisateur implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Annonce", mappedBy="conducteur")
      */
-
     private $annonces;
-    // ...
+
 
     public function __construct()
     {
@@ -146,6 +143,34 @@ class Utilisateur implements UserInterface
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
+    }
+
+    /**
+     * Calcule la moyenne des notes des commentaires de l'utilisateur.
+     *
+     * @return float|null
+     */
+    public function getAverageRating(): ?float
+    {
+        $ratings = [];
+
+        foreach ($this->reservations as $reservation) {
+            foreach ($reservation->getCommentaires() as $commentaire) {
+                $rating = $commentaire->getRating();
+
+                if ($rating !== null) {
+                    $ratings[] = $rating;
+                }
+            }
+        }
+
+        if (empty($ratings)) {
+            return null;
+        }
+
+        $averageRating = array_sum($ratings) / count($ratings);
+
+        return round($averageRating, 2);
     }
 
     public function setRoles(array $roles): self
