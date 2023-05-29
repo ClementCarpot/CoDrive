@@ -33,7 +33,7 @@ Comment déployer et tester l'application ?
 4. Modifier le fichier .env pour configuer la connexion à la base de données :
 (cette ligne)
 
-        DATABASE_URL=postgresql://app:Caramelc17@localhost:5432/postgres
+        DATABASE_URL=postgresql://app:motDePasse@localhost:5432/tp
 
 5. Créer la base de données avec Doctrine :
 
