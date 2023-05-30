@@ -11,6 +11,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
+
 
 class AnnonceController extends AbstractController
 {
@@ -137,6 +142,97 @@ class AnnonceController extends AbstractController
 
         return $this->render('annonce/annonces.html.twig', [
             'annonces' => $annonces,
+        ]);
+    }
+    /**
+     * @Route("/annonce/{id}", name="edit_announcement")
+     */
+    /**
+     * @Route("/annonce/{id}/edit", name="annonce_edit")
+     */
+    public function editAnnonce(Request $request, Annonce $annonce): Response
+    {
+        $form = $this->createForm(AnnonceType::class, $annonce);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return $this->redirectToRoute('mes_annonces');
+        }
+
+        return $this->render('annonce/edit.html.twig', [
+            'form' => $form->createView(),
+            'annonce' => $annonce,
+        ]);
+    }
+
+    // /**
+    //  * @Route("/annonce/{id}/duplicate", name="annonce_duplicate")
+    //  */
+    // public function duplicate(Request $request, Annonce $annonce): Response
+    // {
+    //     // Create a new instance of the Annonce entity
+    //     $newAnnonce = new Annonce();
+
+    //     // Copy the properties from the existing announcement to the new one
+    //     $propertyAccessor = PropertyAccess::createPropertyAccessor();
+    //     $propertyAccessor->setValue($newAnnonce, 'conducteur', $annonce->getConducteur());
+    //     // Copy other properties as needed
+
+    //     $form = $this->createForm(AnnonceType::class, $newAnnonce);
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $entityManager = $this->getDoctrine()->getManager();
+    //         $entityManager->persist($newAnnonce);
+    //         $entityManager->flush();
+
+    //         return $this->redirectToRoute('mes_annonces');
+    //     }
+
+    //     return $this->render('annonce/duplicate.html.twig', [
+    //         'form' => $form->createView(),
+    //         'annonce' => $newAnnonce,
+    //     ]);
+    // }
+
+    public function duplicate(Annonce $trajet, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $nouveauTrajet = clone $trajet;
+        $form = $this->createForm(AnnonceType::class, $nouveauTrajet);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $nouveauTrajet->setConducteur($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($nouveauTrajet);
+            $entityManager->flush();
+            $this->addFlash('success', 'Trajet dupliqué avec succès');
+            return $this->redirectToRoute('mes_annonces');
+        }
+        return $this->render('annonce/duplicate.html.twig', ['nouveauTrajet' => $nouveauTrajet, 'form' => $form->createView()]);
+    }
+    /**
+     * @Route("/annonce/{id}/update", name="annonce_update", methods={"POST"})
+     */
+    public function updateAnnonce(Request $request, Annonce $annonce): Response
+    {
+        // Handle the form submission and update the "annonce" entity
+        $form = $this->createForm(AnnonceType::class, $annonce);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return $this->redirectToRoute('mes_annonces');
+        }
+
+        return $this->render('annonce/edit.html.twig', [
+            'form' => $form->createView(),
+            'annonce' => $annonce,
         ]);
     }
 }

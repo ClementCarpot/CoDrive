@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'myAnnoucements'|trans }} {% endblock %}
+{% block title %}{{ 'myAnnoucements'|trans }}{% endblock %}
 
 {% block body %}
     <div class="flex justify-center">
@@ -20,6 +20,11 @@
                             <form method="post" action="{{ path('annonce_delete', {id: annonce.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce?');">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ annonce.id) }}">
+                                <div class="flex justify-center mt-4">
+                                    <a href="{{ path('edit_announcement', { 'id': annonce.id }) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark-mode-button">
+                                        Editer
+                                    </a>
+                                </div>
                                 <div class="flex justify-center mt-4">
                                     <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark-mode-button">
                                         {{ 'deleteAnnoucement'|trans }} 

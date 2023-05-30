@@ -61,4 +61,12 @@ change_locale:
   path: /change-locale/{locale}
   controller: App\Controller\ProfileController::changeLocale
   requirements:
-    locale: en|fr
+    locale: en|fr|es
+
+edit_announcement:
+  path: /annonce/{id}/update
+  controller: App\Controller\AnnonceController::editAnnonce
+
+duplicate_announcement:
+  path: /annonce/{id}/duplicate
+  controller: App\Controller\AnnonceController::duplicate

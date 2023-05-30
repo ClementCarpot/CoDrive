@@ -59,7 +59,7 @@ class Annonce
      */
     private $reservations;
 
-    /**
+    /**s
      * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="annonce")
      */
     private $commentaires;
