@@ -104,6 +104,13 @@ class AnnonceController extends AbstractController
         ]);
     }
 
+    // TA FONCTIONS AJOUT COMMENTAIRE A AJOUTER ICI
+
+    // ----------- MA SUPER FONCTION D'AJOUT DE COMMENTAIRE --------
+
+    ////////////////////////////////
+
+
     /**
      * @Route("/annonces", name="annonces")
      */

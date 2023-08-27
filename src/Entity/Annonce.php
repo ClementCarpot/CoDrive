@@ -99,10 +99,11 @@ class Annonce
         return $this;
     }
 
-    public function getCommentaires(): Collection
-    {
-        return $this->commentaires;
-    }
+    // public function getCommentaires(): Collection
+    // {
+    //     // UNE ERREUR ICI 
+    //     return $this->commentaires;
+    // }
 
     public function addCommentaire(Commentaire $commentaire): self
     {
