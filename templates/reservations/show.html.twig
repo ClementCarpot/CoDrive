@@ -13,6 +13,7 @@
                 {{ form_label(form.note, null, {'label_attr': {'class': 'font-bold mb-2 text-gray-700 label'}}) }}
                 {{ form_widget(form.note, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark-mode-input'}}) }}
             </div>
+            <br>
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded dark-mode-button" style="margin-bottom:5%" >{{ 'add_Comment'|trans }}</button>
         {{ form_end(form) }}
         <h2 class="font-bold text-2xl mb-4" style="margin-top:2%">{{ 'comments'|trans }}:</h2>
